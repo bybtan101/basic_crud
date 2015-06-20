@@ -34,6 +34,26 @@ Rails.application.routes.draw do
   # invoke the welcome_controller with index action (method) inside it
   # notice the class name is WelcomeController but I only had to put welcome
   # in here as "controller" part is implied
+  
+  #this will match a GET request with URL "/questions/new"
+  #The "as" option gives us a conveinent method that we can use in the views to
+  #generate this path or URL. So in my view files I can do:
+  #new_question_path or new_question_url
+  get "/questions/new" => "questions#new", as: :new_question
+
+  #this will match a POST request with url "/questions"
+  #to the questions controller with create action
+  post "/questions" => "questions#create", as: :questions
+
+  #this will match any GET request with "/questions/something" 
+  #the "something" could be anything. IN this case we expect it 
+  #to be an id of the question. We will get this id in our controller
+  #as part of the params object.
+  get "/questions/:id" => "questions#show", as: :question
+
+  get "/questions" => "questions#index"
+
+
   root "welcome#index"
   # root will match a GET request to "/"
 
